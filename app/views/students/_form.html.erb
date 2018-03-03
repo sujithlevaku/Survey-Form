@@ -1,0 +1,70 @@
+<%= form_with(model: student, local: true) do |form| %>
+  <% if student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :student_name ,class: "form-control"%>
+  </div>
+
+  <div class="field-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :student_email ,class: "form-control"%>
+  </div>
+
+  <div class="field-group">
+    <%= form.label :mobile %>
+    <%= form.text_field :mobile, id: :student_mobile,class: "form-control" %>
+  </div>
+
+  <div class="field-group">
+      <%@questions.each do |question|%>
+      <fieldset>
+        <b><%= question.body%> ?</b>
+
+           <%= form.fields_for :answers do |ans| %>
+          <%= ans.hidden_field :question_id ,value: question.id  %>
+          <%= ans.hidden_field :student_id ,value: student.id  %>
+
+
+             <fieldset>
+              <label for ="choose_options">  </label>
+     <% question.options.each do |otp|%>
+
+            <% if (question.id == otp.question_id)  %>
+            <% otp.choose_value.each do |option|%>
+              <%= ans.radio_button :option, option%> -<%= option%><br/>
+              <%end%>
+            <%end%>
+
+
+              </fieldset>
+
+           <%end%>
+
+    <%end%>
+
+        </fieldset>
+
+
+
+      <%end%>
+
+  </div>
+
+
+
+
+  <div class="actions">
+    <%= form.submit "Submit Form" , class: "btn btn-primary"%>
+  </div>
+<% end %>
