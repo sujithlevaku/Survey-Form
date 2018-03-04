@@ -11,10 +11,8 @@
 	
 <% @question.options.each do |option|%>
 	<ol>
-	<% option.choose_value.each do |opt|%>
 
-		<li><%= opt %></li>
-	<%end%>
+		<li><%= option.choose_value%></li>
 	</ol>
 <%end%>
 

@@ -22,7 +22,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-        @questions = Question.all
+    @questions = Question.all
 
   end
 
@@ -36,6 +36,8 @@ class StudentsController < ApplicationController
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
+              binding.pry
+
         format.html { render :new }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
@@ -74,6 +76,8 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name, :email, :mobile, answers_attributes: [:answers, :attributes,:option ,:student_id,:question_id])
+      params.require(:student).permit(:name, :email, :mobile, answers_attributes: [:id ,:option,:question_id ])
     end
 end
+
+# ,:student_id

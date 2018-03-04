@@ -20,7 +20,7 @@
 
 <div>
 	<%@student.answers.each do |answer|%>
-		<%=answer.question.body%>
+		<b><%=answer.question.body%>?</b>
 		<li><%= answer.option%></li>
 	<%end%>
 

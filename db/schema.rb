@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20180303140206) do
   end
 
   create_table "options", force: :cascade do |t|
-    t.string "choose_value", default: [], array: true
+    t.string "choose_value"
     t.integer "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

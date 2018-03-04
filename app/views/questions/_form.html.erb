@@ -11,32 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field-group">
     <%= form.label :body %>
-    <%= form.text_field :body, id: :question_body %>
+    <%= form.text_field :body, id: :question_body , class: "form-control" %>
   </div>
 
-
-
-   <%= form.fields_for :options do |option_form| %>
-
-
-    <%= option_form.hidden_field :question_id, value: question.id %>
-
-
-   <div class="field">
-    <%= option_form.label :choose_value %>
-    <%= option_form.text_field :choose_value, id: :option_choose_value %>
-  </div>
-
- 
-
-
-   <%end%>
+   <div class="field-group">
+    <%= form.fields_for :options do |option_form| %>
+      <%= option_form.label :choose_value %>
+      <%= option_form.text_field :choose_value, id: :option_choose_value , class: "form-control" %> 
+     <%end%>
+  </div><br>
 
  
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Create Question",class: "btn btn-primary"%>
   </div>
 <% end %>
