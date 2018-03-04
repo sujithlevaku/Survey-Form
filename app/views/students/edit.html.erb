@@ -37,16 +37,18 @@
 		    <b><%= question.body%> ?</b>
 		    	<%= form.fields_for :answers do |answer_form| %>
 		    			<fieldset>
-		          	<% question.options.each do |option_array|%>
+		          	<% question.options.each do |option_value|%>
 
-		              <% if (question.id == option_array.question_id)  %>
+		              <% if (question.id == option_value.question_id)  %>
+
 			                <%= answer_form.hidden_field :question_id ,value: question.id%>
-			                <%= answer_form.radio_button :option, option_array.choose_value%> <%= option_array.choose_value%><br/>
+			                <%= answer_form.radio_button :option, option_value.choose_value%> <%= option_value.choose_value%><br/>
 		              	<%end%>
 
 		            <%end%>
  	
 		   				 </fieldset>
+
 			    <%end%>
 		 </fieldset>
 	<%end%>

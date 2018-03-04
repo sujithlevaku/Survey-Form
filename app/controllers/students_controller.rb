@@ -16,7 +16,6 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
     @questions = Question.all
-    @options = Option.all
     @student.answers.build
   end
 
