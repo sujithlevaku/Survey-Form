@@ -1,11 +1,25 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  # resources :search, only: [:index]
+
 
   # GET /questions
   # GET /questions.json
   def index
+
+
+
+  if params[:search]
+      @questions = Question.search(params[:search]).order("created_at DESC")
+    else
     @questions = Question.all
   end
+
+ end
+
+
+
+
 
   # GET /questions/1
   # GET /questions/1.json

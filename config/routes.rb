@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :homes
+  devise_for :users
   resources :options
   resources :answers
   resources :questions
