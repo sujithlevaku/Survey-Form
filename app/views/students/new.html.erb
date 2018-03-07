@@ -1,4 +1,6 @@
 
 <%= render 'form', student: @student %>
+ <% if (user_signed_in?) && (current_user.is_admin) %> 
 
 <%= link_to 'Back', students_path %>
+<%end%>

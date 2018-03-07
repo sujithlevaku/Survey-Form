@@ -1,10 +1,10 @@
-<%= form_with(model: student, local: true) do |form| %>
-<% if student.errors.any? %>
+<%= form_for(@student , id: "form") do |form| %>
+<% if @student.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+  <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
   <ul>
-    <% student.errors.full_messages.each do |message| %>
+    <% @student.errors.full_messages.each do |message| %>
     <li><%= message %></li>
     <% end %>
   </ul>
@@ -18,44 +18,53 @@
   <div class="container">
     <div class="row">
 
-              <div class="col-md-12 animate-box">
-                        <h3>New Student</h3>
+              <div class="col-md-12 animate-box font-weight-bold">
+              <h2>
+                So how are we solving shyness, depression, low confidence etc?
+              While researching we read in lot of posts that meeting new people and breaking their routine helped them.
+              </h2>
+              <h2>
+               <li>  This forum will be organising only fun events and gatherings.(Watching movies and matches together, travel, pub hop, social work, group games. Open for all the ideas )</li> <br>
+                <li>    You Should not disclose your problems if any.</li>
+               </h2>   <br>
+
+
+
+
+                        <h3>If interested Fill in below details.</h3>
 
 
                               <div class="row form-group">
 
-                                  <div class="col-md-6">
+                                  <div class="col-md-6" id="nameGroup">
                                   <!-- name -->
-                                  <%= form.label :name %>
-                                  <%= form.text_field :name, id: :student_name ,class: "form-control"%>
+                                  <h4><%= form.label :name %></h4>
+                                  <%= form.text_field :name, id: :name ,class: "form-control" ,placeholder: "Name"%>
+                                          <span id="nameError"></span>
 
                                   </div>   
 
 
-                                  <div class="col-md-6">
+                                  <div class="col-md-6" id="mobileGroup">
                                   <!-- mobile -->
-                                  <%= form.label :mobile %>
-                                  <%= form.text_field :mobile, id: :student_mobile,class: "form-control" %>
+                                 <h4> <%= form.label :mobile %></h4>
+                                  <%= form.text_field :mobile, id: :mobile,class: "form-control" ,placeholder: "Mobile"%>
+                                          <span id="mobileError"></span>
 
                                   </div>
                               </div>                
 
 
 
-                                  <div class="row form-group">
+                                  <div class="row form-group" id="emailGroup">
                                     <div class="col-md-12">
                                       <!-- <label for="email">Email</label> -->
-                                      <%= form.label :email %>
-                                      <%= form.text_field :email, id: :student_email ,class: "form-control"%>
+                                      <h4><%= form.label :email %></h4>
+                                      <%= form.text_field :email, id: :email ,class: "form-control" ,placeholder: "Email"%>
+                                              <span id="emailError"></span>
 
                                     </div>
                                   </div>
-
-
-
-
-
-
 
                                   <div class="row form-group">
                                     <div class="col-md-12">
@@ -65,7 +74,7 @@
 
                                           <%@questions.each do |question|%>
                                           <fieldset>
-                                            <b><%= question.body%> ?</b>
+                                            <h2><b><%= question.body%> ?</b></h2>
                                                   <hr>
 
                                             <%= form.fields_for :answers do |answer_form| %>
@@ -73,8 +82,14 @@
                                               <% question.options.each do |option_array|%>
 
                                               <% if (question.id == option_array.question_id)  %>
+
                                               <%= answer_form.hidden_field :question_id ,value: question.id%>
-                                              <%= answer_form.radio_button :option, option_array.choose_value%> <%= option_array.choose_value%><br/>
+                                              <h4><%= answer_form.radio_button :option, option_array.choose_value%> <%= option_array.choose_value%></h4>
+                                              <%if  option_array.choose_value == "others" %>
+                                                <%= answer_form.text_area :option%>
+                                                <%end%>
+
+                                              <br/>
                                                 <hr>
                                               <%end%>
                                             </fieldset>
@@ -92,16 +107,11 @@
 
 
 
-
-
-
-
-
                                     </div>
                                   </div>
 
                                   <div class="form-group">
-                                    <%= form.submit "Submit Form" , class: "btn btn-primary"%>
+                                    <%= form.submit "Submit Form" ,id: :submit , class: "btn btn-primary"%> or <a href="#" id="reset"  class="btn btn-danger"> reset </a>
                                   </div>
                                   <% end %>
 
@@ -120,6 +130,119 @@
 
 <!-- ui for elements end -->
 
+<% if notice %> 
+<script >
+    alertify.alert('Johig', 'Thank You for Joining JOHIG!', function(){ alertify.success('Ok'); });
+
+</script>
+
+<%end%>
+  
+<script >
+
+   var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   var nameFormat = /^[a-zA-Z]*$/;
+
+
+    var formHandle = document.getElementById('form')
+    var resetHandle = document.getElementById('reset')
+    var nameHandle = document.getElementById('name')
+    var emailHandle = document.getElementById('email')
+    var mobileHandle = document.getElementById('mobile')
+    var submitHandle = document.getElementById('submit')
+
+
+    var nameErrorHandle = document.getElementById('nameError')
+    var emailErrorHandle = document.getElementById('emailError')
+    var mobileErrorHandle = document.getElementById('mobileError')
+
+    var validator = {
+        nameValid: false,
+        emailValid: false,
+        mobileValid: false
+      }
+
+
+  var nameGroupHandle = document.getElementById('nameGroup');
+  var emailGroupHandle = document.getElementById('emailGroup');
+  var mobileGroupHandle = document.getElementById('mobileGroup');
+
+  function applyStyle(fieldHandle, fieldStatus){
+     if(fieldStatus){
+      fieldHandle.classList.remove('formError');
+      fieldHandle.classList.add('formSuccess')
+    } else {
+      fieldHandle.classList.remove('formSuccess');
+      fieldHandle.classList.add('formError');
+    }
+  }
+
+  function nameValidation(){
+    if(nameHandle.value === ""){
+      validator.nameValid = false;
+      nameErrorHandle.innerHTML = "Can't be blank ";
+    } else if (!nameFormat.test(nameHandle.value)) {
+      validator.nameValid = false;
+      nameErrorHandle.innerHTML = 'Should only be alphabets';
+    } else {
+      validator.nameValid = true;
+      nameErrorHandle.innerHTML = "Name looks good";
+    }
+
+    applyStyle(nameGroupHandle, validator.nameValid);
+
+  }
+
+
+  function emailValidation(){
+    if(emailHandle.value === ""){
+      validator.emailValid = false;
+      emailErrorHandle.innerHTML = "Can't be blank";
+    } else if(!emailFormat.test(emailHandle.value)) {
+      validator.emailValid = false; 
+      emailErrorHandle.innerHTML = "Should be a valid email"
+    } else {
+      validator.emailValid = true;
+      emailErrorHandle.innerHTML = "Email Looks Good";
+    }
+
+    applyStyle(emailGroupHandle, validator.emailValid);
+
+  }
+
+    function mobileValidation(){
+      if(mobileHandle.value === ""){
+        validator.mobileValid = false;
+        mobileErrorHandle.innerHTML = "Can't be blank"
+      } else if (mobileHandle.value.split(" ").length <= 10 ){
+        validator.mobileValid = false;
+        mobileErrorHandle.innerHTML = "Should be minimun 10 "
+      }else{
+        validator.mobileValid = true
+
+        mobileErrorHandle.innerHTML = "mobile looks Good";
+      }
+    }
+
+
+    formHandle.addEventListener('submit', function(e){
+    nameValidation();
+    emailValidation();
+    mobileValidation();
+      if(Object.values(validator).includes(false)){
+        e.preventDefault();
+
+        setTimeout(function(){
+          submitHandle.disabled = false;
+        },1000);
+      }
+    },false) 
+
+    resetHandle.addEventListener('click',function(e){
+      formHandle.reset()
+      e.preventDefault();
+    },false)
+</script>
 
 
 

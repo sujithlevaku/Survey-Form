@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   # resources :search, only: [:index]
+   load_and_authorize_resource
 
 
   # GET /questions

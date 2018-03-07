@@ -9,28 +9,24 @@
         </div>
         <div class="col-xs-10 text-right menu-1">
           <ul>
+          <% if (user_signed_in?) && (current_user.is_admin) %> 
+
             <li><%= link_to "Students" , students_path%></li>
             <li><%= link_to "Questions" , questions_path%></li>
-            <li class="has-dropdown">
-              <a href="services.html">Services</a>
-              <ul class="dropdown">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">eCommerce</a></li>
-                <li><a href="#">Branding</a></li>
-                <li><a href="#">API</a></li>
-              </ul>
-            </li>
-            <li class="has-dropdown">
-              <a href="#">Tools</a>
-              <ul class="dropdown">
-                <li><a href="#">HTML5</a></li>
-                <li><a href="#">CSS3</a></li>
-                <li><a href="#">Sass</a></li>
-                <li><a href="#">jQuery</a></li>
-              </ul>
-            </li>
-            <li><a href="work.html">Work</a></li>
-            <li class="active"><a href="contact.html">Contact</a></li>
+           
+
+           <li> <%= link_to "Account Setting", edit_user_registration_path%> </li>
+                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+
+
+            
+            
+
+          <%else%>
+            <%= link_to('Login', new_user_session_path)  %>  
+
+
+            <%end%>
           </ul>
         </div>
       </div>
@@ -45,12 +41,25 @@
         <div class="col-md-8 col-md-offset-2 text-center">
           <div class="display-t">
             <div class="display-tc animate-box" data-animate-effect="fadeIn">
-              <h1>Join Hands In Good</h1>
-              <h2>Smile Plz<a href="http://freehtml5.co" target="_blank"> Answer here </a></h2>
+
+            <div class="sticky-top"><h1 > Join Hands In Good</h1></div>
+              <h2>The World needs a little compassion.
+                PS: All events require you to come ALONE: if you come with spouse/friends you will be split into different groups. We encourage making new frnds and 100% FUN !!
+                We are expecting two kinds of people,
+             <li>   1)  Who love meeting new people, helping others, willing to do new activities/adventures</li>
+               <li> 2)  Who need to improve their confidence and personality.(You need not mention this)</li>  
+
+
+
+
+
+
             </div>
           </div>
         </div>
       </div>
     </div>
   </header>
+
+
 

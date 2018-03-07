@@ -1,5 +1,10 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
+     load_and_authorize_resource
+
+
+
+
 
   # GET /students
   # GET /students.json
@@ -32,10 +37,9 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to new_student_path, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
-              binding.pry
 
         format.html { render :new }
         format.json { render json: @student.errors, status: :unprocessable_entity }
