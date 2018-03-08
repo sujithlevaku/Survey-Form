@@ -1,10 +1,10 @@
-<%= form_for(@student , id: "form") do |form| %>
-<% if @student.errors.any? %>
+<%= form_with(model: student, local: true ,id: "form" ) do |form| %>
+<% if student.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+  <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
   <ul>
-    <% @student.errors.full_messages.each do |message| %>
+    <% student.errors.full_messages.each do |message| %>
     <li><%= message %></li>
     <% end %>
   </ul>
@@ -145,23 +145,23 @@
    var nameFormat = /^[a-zA-Z]*$/;
 
 
-    var formHandle = document.getElementById('form')
-    var resetHandle = document.getElementById('reset')
-    var nameHandle = document.getElementById('name')
-    var emailHandle = document.getElementById('email')
-    var mobileHandle = document.getElementById('mobile')
-    var submitHandle = document.getElementById('submit')
+    var formHandle = document.getElementById('form');
+    var resetHandle = document.getElementById('reset');
+    var nameHandle = document.getElementById('name');
+    var emailHandle = document.getElementById('email');
+    var mobileHandle = document.getElementById('mobile');
+    var submitHandle = document.getElementById('submit');
 
 
-    var nameErrorHandle = document.getElementById('nameError')
-    var emailErrorHandle = document.getElementById('emailError')
-    var mobileErrorHandle = document.getElementById('mobileError')
+    var nameErrorHandle = document.getElementById('nameError');
+    var emailErrorHandle = document.getElementById('emailError');
+    var mobileErrorHandle = document.getElementById('mobileError');
 
     var validator = {
         nameValid: false,
         emailValid: false,
         mobileValid: false
-      }
+      };
 
 
   var nameGroupHandle = document.getElementById('nameGroup');
@@ -223,6 +223,8 @@
 
         mobileErrorHandle.innerHTML = "mobile looks Good";
       }
+        applyStyle(mobileGroupHandle, validator.emailValid);
+
     }
 
 
@@ -237,12 +239,12 @@
           submitHandle.disabled = false;
         },1000);
       }
-    },false) 
+    },false) ;
 
     resetHandle.addEventListener('click',function(e){
       formHandle.reset()
       e.preventDefault();
-    },false)
+    },false);
 </script>
 
 
