@@ -19,16 +19,17 @@
     <div class="row">
 
               <div class="col-md-12 animate-box font-weight-bold">
-              <h2>
+              <div >
+              <h4>
                 So how are we solving shyness, depression, low confidence etc?
               While researching we read in lot of posts that meeting new people and breaking their routine helped them.
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                <li>  This forum will be organising only fun events and gatherings.(Watching movies and matches together, travel, pub hop, social work, group games. Open for all the ideas )</li> <br>
                 <li>    You Should not disclose your problems if any.</li>
-               </h2>   <br>
+               </h4>   <br>
 
-
+               </div>
 
 
                         <h3>If interested Fill in below details.</h3>
@@ -86,7 +87,7 @@
                                               <%= answer_form.hidden_field :question_id ,value: question.id%>
                                               <h4><%= answer_form.radio_button :option, option_array.choose_value%> <%= option_array.choose_value%></h4>
                                               <%if  option_array.choose_value == "others" %>
-                                                <%= answer_form.text_area :option%>
+                                                <%= answer_form.text_area :option ,class: "form-control"%>
                                                 <%end%>
 
                                               <br/>
