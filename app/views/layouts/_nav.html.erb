@@ -17,13 +17,25 @@
 
            <li> <%= link_to "Account Setting", edit_user_registration_path%> </li>
                   <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-
-
-            
+                <!--   <li>
+                  <nav class="navbar navbar-light bg-light col-xs-10 text-right menu-1 form-inline">
+                    <form >
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                  </nav>
+            </li> -->
             
 
           <%else%>
             <%= link_to('Login', new_user_session_path)  %>  
+
+
+
+
+
+
+
 
 
             <%end%>

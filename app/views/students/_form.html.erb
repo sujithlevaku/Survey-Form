@@ -215,17 +215,27 @@
       if(mobileHandle.value === ""){
         validator.mobileValid = false;
         mobileErrorHandle.innerHTML = "Can't be blank"
-      } else if (mobileHandle.value.split(" ").length <= 10 ){
+      } else if (mobileHandle.value.length < 10 ){
         validator.mobileValid = false;
-        mobileErrorHandle.innerHTML = "Should be minimun 10 "
+        mobileErrorHandle.innerHTML = "Should be 10 Digits "
+      }else if (mobileHandle.value.length > 10 ){
+        validator.mobileValid = false;
+        mobileErrorHandle.innerHTML = "Number is greater then 10 Digits  "
       }else{
         validator.mobileValid = true
 
         mobileErrorHandle.innerHTML = "mobile looks Good";
       }
-        applyStyle(mobileGroupHandle, validator.emailValid);
+        applyStyle(mobileGroupHandle, validator.mobileValid);
 
     }
+
+
+
+
+
+
+
 
 
     formHandle.addEventListener('submit', function(e){
@@ -237,12 +247,12 @@
 
         setTimeout(function(){
           submitHandle.disabled = false;
-        },1000);
+        },200);
       }
     },false) ;
 
     resetHandle.addEventListener('click',function(e){
-      formHandle.reset()
+      formHandle.reset();
       e.preventDefault();
     },false);
 </script>

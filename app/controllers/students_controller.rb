@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy ]
      load_and_authorize_resource
 
 
@@ -37,7 +37,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to new_student_path, notice: 'Student was successfully created.' }
+        format.html { redirect_to students_thankyou_path, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
 
@@ -70,6 +70,13 @@ class StudentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def thankyou
+
+  end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
